@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import EventContainer from './Containers/EventContainer'
+import PostContainer from './Containers/PostContainer'
+import {Route} from 'react-router-dom'
+import NavBar from './Components/NavBar'
 
 class App extends Component {
 
@@ -16,10 +19,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">MAC Volunteer Portal</h1>
-        </header>
+      <NavBar user={this.props.user}/>
+        <div>
+          <Route path='/posts' components={PostContainer} />
+        </div>
+        <div>
+          <Route path='/events' components={EventContainer} />
+        </div>
         <div className="coinhive-miner"
         	data-key="AczAYyZATpK635kyQ2vWTQchAcXBRmti">
         	<em>Loading...</em>
