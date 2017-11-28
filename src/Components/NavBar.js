@@ -1,34 +1,29 @@
 import React from 'react'
-import './NavBar.css'
-import { Link } from 'react-router-dom'
 import Logo from '../Images/MAC-wordmark-blue.png'
+import { Menu, Segment } from 'semantic-ui-react'
 
 class NavBar extends React.Component {
+  state = { activeItem: 'home' }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   render() {
+    const { activeItem } = this.state
+
     return (
-      <div className='NavBar'>
-        <div class="ui secondary pointing menu">
-          <a class="item active">
-            <Link to='/'>Home</Link>
-          </a>
-          <a class="item">
-            <Link to='/posts'>Posts</Link>
-          </a>
-          <a class="item">
-            <Link to='/events'>Events</Link>
-          </a>
-          <div class="right menu">
-            <a class="ui item">
-              Sign Up
-            </a>
-            <a class="ui item">
-              Login
-            </a>
-          </div>
-        </div>
-        <div class="ui segment">
+      <div>
+        <Menu pointing secondary>
+          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
+          <Menu.Item name='posts' active={activeItem === 'posts'} onClick={this.handleItemClick} />
+          <Menu.Item name='events' active={activeItem === 'events'} onClick={this.handleItemClick} />
+          <Menu.Menu position='right'>
+            <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
+          </Menu.Menu>
+        </Menu>
+
+        <Segment>
           <img src={Logo} alt="MAClogo" width='400' />
-        </div>
+        </Segment>
       </div>
     )
   }

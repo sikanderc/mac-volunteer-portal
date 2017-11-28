@@ -2,7 +2,16 @@ import React from 'react'
 
 class MiningPage extends React.Component {
 
-  render(){
+  componentWillMount () {
+    const script = document.createElement("script");
+
+    script.src = "https://authedmine.com/lib/simple-ui.min.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+  }
+
+  render() {
     return (
       <div className="coinhive-miner"
         data-key="AczAYyZATpK635kyQ2vWTQchAcXBRmti">
@@ -11,3 +20,5 @@ class MiningPage extends React.Component {
     )
   }
 }
+
+export default MiningPage

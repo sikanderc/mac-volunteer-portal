@@ -4,17 +4,45 @@ import EventContainer from './Containers/EventContainer'
 import PostContainer from './Containers/PostContainer'
 import {Route} from 'react-router-dom'
 import NavBar from './Components/NavBar'
+import MiningPage from './Components/MiningPage';
+import AuthAdapter from './Services/AuthAdapter'
+// import SignUpForm from './Components/Forms/SignUpForm'
 
 class App extends Component {
 
   componentWillMount () {
-        const script = document.createElement("script");
+    if (localStorage.getItem('jwt')) {
+       AuthAdapter.currentUser()
+         .then(user => {
+           if (!user.error) {
+             console.log("fetch user");
+             this.setState({
+               auth: {
+                 isLoggedIn: true,
+                 user: user
+               }
+             })
+           }
+         })
+     }
+  }
 
-        script.src = "https://authedmine.com/lib/simple-ui.min.js";
-        script.async = true;
+  logIn(loginParams){
+    AuthAdapter.login(loginParams)
+      .then( user => {
+        if (!user.error) {
+          this.setState({
+            auth: { isLoggedIn: true, user: user}
+          })
+          localStorage.setItem('jwt', user.jwt )
+        }
+      })
+  }
 
-        document.body.appendChild(script);
-    }
+  logout(){
+    localStorage.removeItem('jwt')
+    this.setState({ auth: { isLoggedIn: false, user:{}}})
+  }
 
   render() {
     return (
@@ -26,9 +54,8 @@ class App extends Component {
         <div>
           <Route path='/events' components={EventContainer} />
         </div>
-        <div className="coinhive-miner"
-        	data-key="AczAYyZATpK635kyQ2vWTQchAcXBRmti">
-        	<em>Loading...</em>
+        <div>
+          <MiningPage />
         </div>
       </div>
     );
