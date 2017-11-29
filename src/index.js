@@ -9,6 +9,8 @@ import thunk from 'redux-thunk'
 import rootReducer from './Reducers/rootReducer'
 import { BrowserRouter as Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import 'rc-time-picker/assets/index.css';
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

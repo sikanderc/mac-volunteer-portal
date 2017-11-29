@@ -4,9 +4,9 @@ import EventContainer from './Containers/EventContainer'
 import PostContainer from './Containers/PostContainer'
 import {Route} from 'react-router-dom'
 import NavBar from './Components/NavBar'
-import MiningPage from './Components/MiningPage';
+// import MiningPage from './Components/MiningPage';
 import AuthAdapter from './Services/AuthAdapter'
-// import SignUpForm from './Components/Forms/SignUpForm'
+import MiningPage from './Components/MiningPage'
 
 class App extends Component {
 
