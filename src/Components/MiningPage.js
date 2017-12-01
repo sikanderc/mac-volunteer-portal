@@ -1,4 +1,5 @@
 import React from 'react'
+import './MiningPage.css'
 
 class MiningPage extends React.Component {
 

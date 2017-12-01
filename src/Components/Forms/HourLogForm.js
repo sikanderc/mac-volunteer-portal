@@ -3,16 +3,15 @@ import { Button, TextArea, Form } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-class HourLog extends React.Component {
+class HourLogForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       workDate: moment()
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(date) {
+  handleChange = (date) => {
     this.setState({
       workDate: date
     });
@@ -47,4 +46,4 @@ class HourLog extends React.Component {
   }
 }
 
-export default HourLog
+export default HourLogForm

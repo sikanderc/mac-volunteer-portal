@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
+import {Route, Switch} from 'react-router-dom'
+import { Redirect } from 'react-router';
+import NavBar from './Components/NavBar'
 import EventContainer from './Containers/EventContainer'
 import PostContainer from './Containers/PostContainer'
-import {Route} from 'react-router-dom'
-import NavBar from './Components/NavBar'
-// import MiningPage from './Components/MiningPage';
+import MiningContainer from './Containers/MiningContainer'
+import HourLogContainer from './Containers/HourLogContainer'
+import LoginForm from './Components/Forms/LoginForm';
+import SignUpForm from './Components/Forms/SignUpForm';
+import HomePage from './Components/HomePage';
 import AuthAdapter from './Services/AuthAdapter'
-import MiningPage from './Components/MiningPage'
+// import EventForm from './Components/Forms/EventForm'
+
 
 class App extends Component {
+  state={
+    auth: {
+      isLoggedIn: false,
+      user: null
+    }
+  }
+
 
   componentWillMount () {
     if (localStorage.getItem('jwt')) {
@@ -26,6 +39,8 @@ class App extends Component {
          })
      }
   }
+
+
 
   logIn(loginParams){
     AuthAdapter.login(loginParams)
@@ -49,17 +64,18 @@ class App extends Component {
       <div className="App">
       <NavBar user={this.props.user}/>
         <div>
-          <Route path='/posts' components={PostContainer} />
-        </div>
-        <div>
-          <Route path='/events' components={EventContainer} />
-        </div>
-        <div>
-          <MiningPage />
+          <Route exact path='/' render={()=>(<h1>Home</h1>)} />
+          <Route path='/posts' component={PostContainer} />
+          <Route path='/events' component={EventContainer} />
+          <Route path='/mineForMAC' component={MiningContainer} />
+          <Route path='/hourLog' component={HourLogContainer} />
+          <Route path='/login' render={()=>(<LoginForm />)} />
+          <Route path='/signup' render={()=><SignUpForm />} />
         </div>
       </div>
     );
   }
 }
+// <Route path='/logout' render={()=>(<LogoutForm />)} />
 
 export default App;

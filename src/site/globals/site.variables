@@ -1,0 +1,4 @@
+@blue: #2F406D;
+@yellow: #E8DD32;
+@primaryColor: @blue;
+@secondaryColor: @yellow;
