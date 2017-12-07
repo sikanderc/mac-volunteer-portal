@@ -6,6 +6,7 @@ import { stateOptions, genderOptions } from './common'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import './../../site/globals/site.variables'
+import {Redirect} from 'react-router-dom'
 
 class SignUpForm extends React.Component {
   constructor (props) {
@@ -51,6 +52,7 @@ class SignUpForm extends React.Component {
   handleSignUpSubmit = (event) => {
     event.preventDefault()
     this.props.signUpUser({user: {first_name: this.state.firstName, last_name: this.state.lastName, organization: this.state.organization, phone: this.state.phone, address: this.state.address, apt: this.state.apt, city: this.state.city, state: this.state.state, zip: this.state.zip, dob: this.state.dob, gender: this.state.gender, email: this.state.email, password: this.state.password, password_confirmation: this.state.passwordConfirmation}});
+
   }
 
   render() {
@@ -114,6 +116,7 @@ class SignUpForm extends React.Component {
             </Form>
           </Grid.Column>
         </Grid>
+        { this.props.loggedIn ? <Redirect to='/'/> : null }
       </div>
     )
   }
@@ -121,7 +124,8 @@ class SignUpForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.dataReducer
+    ...state.dataReducer,
+    loggedIn: state.loggedIn
   };
 };
 

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Route} from 'react-router-dom'
 import { fetchPosts } from '../../Actions/posts'
-import { Card } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
+import './PostList.css'
 
 class PostList extends Component {
 
@@ -13,17 +14,31 @@ class PostList extends Component {
   posts = () => {
     let titles = []
     for(let key in this.props.data.posts) {
-      titles.push(<Card key={key} header={this.props.data.posts[key].title} meta={this.props.data.posts[key].user.email} description={this.props.data.posts[key].content}/>)
+      titles.push(<li key={key}>
+          <Segment.Group textAlign='center' raised>
+            <Segment color='black' size={'big'}>
+              Title:<br/>
+              {this.props.data.posts[key].title}
+            </Segment>
+            <Segment>
+              Posted by: <br/>
+              {this.props.data.posts[key].user.email}
+            </Segment>
+            <Segment>
+              Content:<br/>
+              {this.props.data.posts[key].content}
+            </Segment>
+          </Segment.Group>
+        </li>)
     }
     return titles
   }
 
   render() {
-    console.log("post list", this.props);
     return(
       <div className="postWrapper">
-        <div className="postsList">
-          {(!this.props.data.posts) ? "Loading..." : <div><Card.Group>{this.posts()}</Card.Group></div>}
+        <div className="postsListcontainer">
+          {(!this.props.data.posts) ? "Loading..." : <div id="postsList"><ul>{this.posts()}</ul></div>}
         </div>
       </div>
     )

@@ -35,7 +35,7 @@ class App extends Component {
       <div className="App">
       <NavBar history={this.props.history}/>
         <div>
-          <Route exact path='/' render={()=>(<h1>Home</h1>)} />
+          <Route exact path='/' component={HomePage} />
           <Route path='/posts' component={PostContainer} />
           <Route path='/events' component={EventContainer} />
           <Route path='/mineForMAC' component={MiningContainer} />

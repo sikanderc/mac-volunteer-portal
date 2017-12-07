@@ -16,7 +16,7 @@ class EventContainer extends Component {
   render() {
     return (
       <div>
-        <Route path='/events' render={()=>(<h2>Events Container</h2>)} />
+        <Route path='/events' render={()=>(<h2>Events</h2>)} />
         <Switch>
           <Route exact path='/events' render={()=>(<EventList />)} />
           <Route exact path='/events/new' render={()=>(<EventForm />)} />

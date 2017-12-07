@@ -8,14 +8,12 @@ import {Route, Link, withRouter, Redirect} from 'react-router-dom'
 class LoginForm extends React.Component {
   state = {
       email: '',
-      password: '',
-      login: false
+      password: ''
   }
 
   handleLoginSubmit = (event) => {
     event.preventDefault()
     this.props.signInUser({user: {email: this.state.email, password: this.state.password}});
-    this.setState({login: true})
   }
 
   handleChange = (event) => {
@@ -76,7 +74,7 @@ class LoginForm extends React.Component {
             </Message>
           </Grid.Column>
         </Grid>
-        { this.state.login ? <Redirect to='/'/> : null }
+        { this.props.loggedIn ? <Redirect to='/'/> : null }
       </div>
     )
   }
@@ -84,7 +82,8 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.dataReducer
+    ...state.dataReducer,
+    loggedIn: state.loggedIn
   };
 };
 
