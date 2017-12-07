@@ -16,10 +16,10 @@ class PostContainer extends Component {
   render() {
     return (
       <div>
-        <Route path='/posts' render={()=>(<h2>Posts Container</h2>)} />
+      <Route path='/posts' render={()=>(<h2>Posts Container</h2>)} />
         <Switch>
           <Route exact path='/posts' render={()=>(<PostList />)} />
-          <Route exact path='/posts/new' render={()=>(<PostForm />)} />
+          <Route exact path='/posts/new' render={()=>(<PostForm onAdd={this.addPost} />)} />
         </Switch>
       </div>
     )

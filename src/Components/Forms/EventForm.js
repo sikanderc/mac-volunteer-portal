@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import TimePicker from 'rc-time-picker';
 import { stateOptions } from './common'
+import { createEvent, fetchEvents, updateEvent, removeEvent } from "../../Actions/events";
 
 const format = 'h:mm a';
 const now = moment().hour(0).minute(0);
@@ -29,17 +30,7 @@ class EventForm extends React.Component {
 
   onEventSubmit = (event) => {
     event.preventDefault()
-    console.log(event.target.name.value);
-    console.log(event.target.startDate.value);
-    console.log(event.target.startTime.value);
-    console.log(event.target.endDate.value);
-    console.log(event.target.endTime.value);
-    console.log(event.target.city.value);
-    console.log(this.state.state);
-    console.log(event.target.zip.value);
-
-
-    this.setState({
+    this.props.createEvent({event: {
       name: event.target.name.value,
       startDate: event.target.startDate.value,
       endDate: event.target.endDate.value,
@@ -50,7 +41,7 @@ class EventForm extends React.Component {
       city: event.target.city.value,
       zip: event.target.zip.value,
       details:event.target.details.value
-    })
+    }})
   }
 
   handleStartChange = (date) => {

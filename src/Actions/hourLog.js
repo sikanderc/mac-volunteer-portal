@@ -1,4 +1,4 @@
-import HourLogApi from '../Services/postApi'
+import {HourLogApi} from '../Adapter'
 
 export function fetchHourLogs() {
     return function(dispatch) {

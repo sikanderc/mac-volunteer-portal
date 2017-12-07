@@ -1,32 +1,74 @@
-import EventApi from '../Services/eventApi'
+import {EventApi} from '../Adapter'
 
-export function fetchEvents() {
-  return function(dispatch) {
-    dispatch(fetchingEvents())
-    EventApi.fetchEvents()
-    .then((events) => {
-      dispatch(fetchedEvents(events))
+export function createEvent(eventObj) {
+  return dispatch => {
+    dispatch(creatingEvent())
+    EventApi.newEvent(eventObj)
+    .then(eventData => {
+      dispatch(newEvent(eventData))
     })
   }
 }
 
-function fetchedEvents(events) {
+export function fetchEvents() {
+  return dispatch => {
+    dispatch(fetchingEvents())
+    EventApi.getEvents()
+    .then(eventsData => {
+      dispatch(fetchedEvents(eventsData))
+    })
+  }
+}
+
+export function updateEvent(params) {
+  return dispatch => {
+    dispatch(fetchingEvents())
+    EventApi.editEvent(params)
+    .then((eventData) => {
+      dispatch(updateEvent(eventData))
+    })
+  }
+}
+
+export function removeEvent() {
+  return dispatch => {
+    dispatch(removingEvent())
+    EventApi.deleteEvent()
+    .then((event) => {
+      dispatch(removedEvent(event))
+    })
+  }
+}
+
+export function creatingEvent() {
+  return { type: 'CREATING_EVENT'}
+}
+
+export function newEvent(eventData) {
+  return {
+    type: 'NEW_EVENT',
+    payload: eventData
+  }
+}
+
+export function fetchingEvents() {
+  return { type: 'FETCHING_EVENTS'}
+}
+
+export function fetchedEvents(events) {
   return {
     type: 'FETCHED_EVENTS',
     payload: events
   }
 }
 
-function fetchingEvents() {
-  return { type: 'FETCHING_EVENTS'}
+export function removingEvent() {
+  return { type: 'REMOVING_EVENT'}
 }
 
-
-export function createEvent(params) {
-  return function(dispatch) {
-    EventApi.createEvent(params)
-    .then((event) => {
-      dispatch({})
-    })
+export function removedEvent(events) {
+  return {
+    type: 'REMOVED_EVENT',
+    payload: events
   }
 }

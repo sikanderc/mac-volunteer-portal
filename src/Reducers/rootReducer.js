@@ -1,4 +1,4 @@
-export default function rootReducer(
+function rootReducer(
   state = {posts: [], events: [], isLoading: false },
   action
 ) {

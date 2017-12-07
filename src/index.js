@@ -6,17 +6,21 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import rootReducer from './Reducers/rootReducer'
-import { BrowserRouter as Router } from 'react-router-dom'
+import dataReducer from './Reducers/dataReducer'
+import { Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import 'rc-time-picker/assets/index.css';
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+const history = createHistory()
+const middleware = routerMiddleware(history)
+const store = createStore(dataReducer, applyMiddleware(thunk, middleware ))
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <App />
     </Router>
   </Provider>,

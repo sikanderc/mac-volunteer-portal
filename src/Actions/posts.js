@@ -1,9 +1,9 @@
-import PostApi from '../Services/postApi'
+import {PostApi} from '../Adapter'
 
 export function fetchPosts() {
-    return function(dispatch) {
+    return dispatch => {
       dispatch(fetchingPosts())
-      PostApi.fetchPosts()
+      PostApi.getPosts()
       .then((posts) => {
         dispatch(fetchedPosts(posts))
       })

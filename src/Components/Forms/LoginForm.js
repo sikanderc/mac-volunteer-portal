@@ -1,45 +1,33 @@
 import React from 'react'
+import { connect } from "react-redux";
+import { signInUser } from "../../Actions/user";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import AuthAdapter from './../../Services/AuthAdapter'
+import {Route, Link, withRouter, Redirect} from 'react-router-dom'
+
 
 class LoginForm extends React.Component {
   state = {
-    email: '',
-    password: '',
-    isLoggedIn: false
+      email: '',
+      password: '',
+      login: false
   }
 
-  setUser(json){
-    this.setState({
-      email: json.email,
-      password: json.password
-    })
-  }
-
-  onSignIn = (event) => {
+  handleLoginSubmit = (event) => {
     event.preventDefault()
-    this.handleSignIn(this.state.userInput)
-    this.setState({
-      isLoggedIn: true
-    })
+    this.props.signInUser({user: {email: this.state.email, password: this.state.password}});
+    this.setState({login: true})
   }
 
   handleChange = (event) => {
     this.setState({
-      email: event.target.value
+      [event.target.name]: event.target.value
     })
   }
 
-  handlePasswordChange = (event) => {
-    this.setState({
-      password: event.target.value
-    })
-  }
-
-  handleSignIn = () => {
-    AuthAdapter.login({email: this.state.email, password: this.state.password})
-      .then((json) => this.setUser(json))
-  }
+  // handleSignIn = () => {
+  //   AuthAdapter.login({email: this.state.email, password: this.state.password})
+  //     .then((json) => this.setUser(json))
+  // }
 
   render() {
     return (
@@ -59,7 +47,7 @@ class LoginForm extends React.Component {
           <Grid.Column style={{ maxWidth: 450 }}>
           <br/>
             <Header as='h2' color='blue' textAlign='center'>Login to your account</Header>
-            <Form size='large' onSubmit={this.onSignIn}>
+            <Form size='large' onSubmit={this.handleLoginSubmit}>
               <Segment stacked>
                 <Form.Input
                   fluid
@@ -67,6 +55,7 @@ class LoginForm extends React.Component {
                   iconPosition='left'
                   placeholder='E-mail address'
                   type='email'
+                  name='email'
                   onChange={this.handleChange} value={this.state.email}
                 />
                 <Form.Input
@@ -75,7 +64,8 @@ class LoginForm extends React.Component {
                   iconPosition='left'
                   placeholder='Password'
                   type='password'
-                  onChange={this.handlePasswordChange} value={this.state.password}
+                  name='password'
+                  onChange={this.handleChange} value={this.state.password}
                 />
 
                 <Form.Button type="submit" color='yellow' fluid size='large'>Login</Form.Button>
@@ -86,9 +76,18 @@ class LoginForm extends React.Component {
             </Message>
           </Grid.Column>
         </Grid>
+        { this.state.login ? <Redirect to='/'/> : null }
       </div>
     )
   }
 }
 
-export default LoginForm
+const mapStateToProps = state => {
+  return {
+    ...state.dataReducer
+  };
+};
+
+export default connect(mapStateToProps, {
+  signInUser
+})(LoginForm);
