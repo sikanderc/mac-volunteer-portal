@@ -14,9 +14,12 @@ class MiningPage extends React.Component {
 
   render() {
     return (
+      <div>
+      <br/><br/>  <br/><br/>  <br/><br/>
       <div className="coinhive-miner"
         data-key="AczAYyZATpK635kyQ2vWTQchAcXBRmti">
         <em>Loading...</em>
+      </div>
       </div>
     )
   }

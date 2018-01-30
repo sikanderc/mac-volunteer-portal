@@ -1,13 +1,20 @@
 import { schema, normalize } from 'normalizr'
 
-const comment = new schema.Entity("comments", {
-  commenter: user,
-  post: post
+const user = new schema.Entity('users', {
+  events: [newEvent],
+  hourLogs: [hourLog],
+  posts: [post],
+  comments: [comment]
 })
 
 const post = new schema.Entity('posts', {
   comments: [comment],
   author: user
+})
+
+const comment = new schema.Entity("comments", {
+  commenter: user,
+  post: post
 })
 
 const newEvent = new schema.Entity('events', {
@@ -26,13 +33,6 @@ const hourLog = new schema.Entity('hourLogs', {
 const userEvent = new schema.Entity('userEvents', {
   connectedUser: user,
   connectedEvent: newEvent
-})
-
-const user = new schema.Entity('users', {
-  events: [newEvent],
-  hourLogs: [hourLog],
-  posts: [post],
-  comments: [comment]
 })
 
 const userList = [user]

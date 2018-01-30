@@ -1,11 +1,11 @@
-import {AuthAdapter} from '../Adapter'
+import {AuthAdapter, UserApi} from '../Adapter'
 
 export function getCurrentUser() {
   return dispatch => {
-    dispatch(loadingUser());
+    dispatch(loadingUser())
     AuthAdapter.getUser()
     .then(userData => {
-      dispatch(gettingCurrentUser(userData));
+      dispatch(gettingCurrentUser(userData))
     })
   }
 }
@@ -15,7 +15,7 @@ export function signInUser(userObj) {
     dispatch(loadingUser())
     AuthAdapter.login(userObj)
     .then(userData => {
-      dispatch(loginUser(userData));
+      dispatch(loginUser(userData))
     })
   }
 }
@@ -24,10 +24,9 @@ export function signOutUser() {
   return dispatch => {
     AuthAdapter.logout()
     .then(userData => {
-      dispatch(logOutUser());
+      dispatch(logOutUser())
     })
   }
-  return
 }
 
 export function signUpUser(userObj) {
@@ -35,11 +34,20 @@ export function signUpUser(userObj) {
     dispatch(signingUp())
     AuthAdapter.signUp(userObj)
     .then(userData => {
-      dispatch(signedUpUser(userData));
-    });
-  };
+      dispatch(signedUpUser(userData))
+    })
+  }
 }
 
+export function makeAMiner(userObj) {
+  return dispatch => {
+    dispatch(editingUser())
+    UserApi.editUser(userObj)
+    .then(userData => {
+      dispatch(editedUser(userData))
+    })
+  }
+}
 
 export function loginError(json) {
 }
@@ -47,34 +55,34 @@ export function loginError(json) {
 export function signingUp() {
   return {
     type: "SIGNING_UP_USER"
-  };
+  }
 }
 
 export function signedUpUser(userData) {
   return {
     type: "SIGNED_UP_USER",
     payload: userData
-  };
+  }
 }
 
 export function loadingUser() {
   return {
     type: "LOADING_USER"
-  };
+  }
 }
 
 export function loginUser(userData) {
   return {
     type: "LOGIN_USER",
     payload: userData
-  };
+  }
 }
 
 export function gettingCurrentUser(userData) {
   return {
     type: "GET_USER",
     payload: userData
-  };
+  }
 }
 
 
@@ -83,7 +91,7 @@ export function gettingCurrentUser(userData) {
 export function logOutUser() {
   return {
     type: "LOG_OUT_USER"
-    };
+    }
 }
 
 export function setUsers(usersData) {
@@ -97,15 +105,15 @@ export function emailChanged(email) {
   return {
     type: 'EMAIL_CHANGED',
     payload: email
-  };
-};
+  }
+}
 
 export function passwordChanged(password) {
   return {
     type: 'PASSWORD_CHANGED',
     payload: password
-  };
-};
+  }
+}
 
 export function getUsers() {
   return dispatch => {
@@ -147,13 +155,19 @@ export function updateUser(userObj) {
       }
     })
     // .then(response => response.json())
-    .then(users => dispatch(updateUserfunc(userObj)))
+    .then(users => dispatch(editedUser(userObj)))
   }
 }
 
-export function updateUserfunc(userObj) {
+export function editedUser(userObj) {
   return {
     type: "UPDATE_USER",
     payload: userObj
+  }
+}
+
+export function editingUser() {
+  return {
+    type: "UPDATING_USER"
   }
 }

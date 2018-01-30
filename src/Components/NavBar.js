@@ -1,15 +1,15 @@
 import React from 'react'
 import Logo from '../Images/MAC-wordmark-blue.png'
+import ShortLogo from '../Images/MAC-logo-blue.png'
 import { Menu, Segment } from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {Route, Link, withRouter} from 'react-router-dom'
-import LoginForm from './Forms/LoginForm'
+import { Link } from 'react-router-dom'
 import { logOutUser } from '../Actions/user'
 
 
 class NavBar extends React.Component {
   state = {
-    activeItem: 'home'
+    activeItem: this.props.history.location.pathname.split('/')[1]
   }
 
   handleItemClick = (e, { name }) => {
@@ -20,18 +20,10 @@ class NavBar extends React.Component {
     const { activeItem } = this.state
     if (!!this.props.loggedIn) {
       var secondaryMenu = (<Menu.Menu position='right'>
-        <Link to='/mineForMAC'>
-          <Menu.Item name='mineForMAC' active={activeItem === 'mineForMAC'} onClick={this.handleItemClick} />
-        </Link>
-        <Link to='/events/new'>
-          <Menu.Item name='createEvent' active={activeItem === 'createEvent'} onClick={this.handleItemClick} />
-        </Link>
-        <Link to='/myEvents'>
-          <Menu.Item name='myEvents' active={activeItem === 'myEvents'} onClick={this.handleItemClick} />
-        </Link>
-        <Link to='/hourLog'>
-          <Menu.Item name='hourLog' active={activeItem === 'hourLog'} onClick={this.handleItemClick} />
-        </Link>
+        <Menu.Item name='mineForMAC' active={activeItem === 'mineForMAC'} onClick={this.handleItemClick} as={Link} to='/mineForMAC' />
+        <Menu.Item name='createEvent' active={activeItem === 'createEvent'} onClick={this.handleItemClick} as={Link} to='/events/new' />
+        <Menu.Item name='myEvents' active={activeItem === 'myEvents'} onClick={this.handleItemClick} as={Link} to='/myEvents' />
+        <Menu.Item name='hourLog' active={activeItem === 'hourLog'} onClick={this.handleItemClick} as={Link} to='/hourLog' />
         <Menu.Item name='logout' active={activeItem === 'logout' } onClick={() => {
           this.props.logOutUser()
           this.setState({ activeItem: 'logout' })
@@ -39,23 +31,17 @@ class NavBar extends React.Component {
         }} />
       </Menu.Menu>)
     } else {
-      var secondaryMenu = (<Menu.Menu position='right'><Link to='/signup'><Menu.Item name='sign up' active={activeItem === 'sign up'} onClick={this.handleItemClick} /></Link><Link to='/login'><Menu.Item name='login' active={activeItem === 'login' } onClick={this.handleItemClick} /></Link></Menu.Menu>)
+      secondaryMenu = (<Menu.Menu position='right'><Menu.Item name='signup' active={activeItem === 'signup'} onClick={this.handleItemClick} as={Link} to='/signup' /><Menu.Item name='login' active={activeItem === 'login' } onClick={this.handleItemClick} as={Link} to='/login' /></Menu.Menu>)
     }
 
     return (
       <div>
-        <Menu pointing secondary>
-          <Link to='/'>
-            <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
-          </Link>
+        <Menu pointing secondary stackable>
+          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} as={Link} to='/'></Menu.Item>
 
-          <Link to='/posts'>
-            <Menu.Item name='posts' active={activeItem === 'posts'} onClick={this.handleItemClick} />
-          </Link>
+          <Menu.Item name='posts' active={activeItem === 'posts'} onClick={this.handleItemClick} as={Link} to='/posts' />
 
-          <Link to='/events'>
-            <Menu.Item name='events' active={activeItem === 'events'} onClick={this.handleItemClick} />
-          </Link>
+          <Menu.Item name='events' active={activeItem === 'events'} onClick={this.handleItemClick} as={Link} to='/events' />
           {secondaryMenu}
         </Menu>
 

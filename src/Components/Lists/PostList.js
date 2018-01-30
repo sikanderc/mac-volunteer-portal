@@ -15,8 +15,8 @@ class PostList extends Component {
     let titles = []
     for(let key in this.props.data.posts) {
       titles.push(<li key={key}>
-          <Segment.Group textAlign='center' raised>
-            <Segment color='black' size={'big'}>
+          <Segment.Group raised>
+            <Segment color='blue' size={'big'}>
               Title:<br/>
               {this.props.data.posts[key].title}
             </Segment>

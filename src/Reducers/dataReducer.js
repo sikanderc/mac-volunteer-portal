@@ -60,7 +60,7 @@ export default function dataReducer(state = initialState, action) {
       return { ...state, userEvents: {...state.userEvents, ...normalizedUserEvents.entities.userEvents}, data: normalizedUserEvents.entities, results: normalizedUserEvents.result }
     case "UPDATE_USER":
       let newUsers = Object.keys(state.data.users).map(u => {
-        if (state.data.users[u].id == action.payload.id) {
+        if (state.data.users[u].id === action.payload.id) {
           state.data.users[u] = action.payload
           return state.data.users[u]
         }

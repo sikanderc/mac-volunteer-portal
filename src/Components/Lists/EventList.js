@@ -15,14 +15,15 @@ class EventList extends Component {
     let names = []
     for(let key in this.props.data.events) {
       names.push(<li key={key}>
-          <Segment.Group textAlign='center' raised>
-            <Segment color='black' size={'big'}>
+          <Segment.Group raised>
+            <Segment color='blue' size={'big'}>
               Event:<br/>
               {this.props.data.events[key].name}
             </Segment>
             <Segment>
               Location:<br/>
-              {this.props.data.events[key].location1}
+              {this.props.data.events[key].location1}<br/>
+              {this.props.data.events[key].location2}
             </Segment>
             <Segment>
               Details:<br/>
