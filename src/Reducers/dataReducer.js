@@ -1,6 +1,6 @@
 import { userNormalizr, postNormalizr, commentNormalizr, eventNormalizr, hourLogNormalizr, userEventNormalizr } from '../normalizr'
 
-const initialState = { id: null, email: null, loggedIn: false, loading: false, users: {}, posts: {}, events: {}, hour_logs: {}, connected: {}, data: {users: [], comments: [], posts: [], events: [], hour_logs: [], connected: [] }}
+const initialState = { id: null, email: null, loggedIn: false, loading: false, superAdmin: false, users: {}, posts: {}, events: {}, hour_logs: {}, connected: {}, data: {users: null, comments: null, posts: null, events: null, hour_logs: null, connected: null }}
 
 export default function dataReducer(state = initialState, action) {
   switch (action.type) {
@@ -25,6 +25,7 @@ export default function dataReducer(state = initialState, action) {
         ...state,
         id: action.payload.id,
         email: action.payload.email,
+        superAdmin: action.payload.super_admin,
         loggedIn: true,
         loading: false,
         loginError: null
@@ -37,6 +38,7 @@ export default function dataReducer(state = initialState, action) {
           ...state,
           id: action.payload.id,
           email: action.payload.email,
+          superAdmin: action.payload.super_admin,
           loggedIn: true,
           loading: false
         };

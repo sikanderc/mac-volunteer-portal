@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
 
-class SidebarLeftOverlay extends Component {
+class AdminSidebar extends Component {
   state = {
     visible: false,
   }
@@ -34,17 +34,17 @@ class SidebarLeftOverlay extends Component {
       <div onMouseMove={this.handleMouseMove}>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='overlay' width='thin' visible={visible} icon='labeled' vertical inverted>
-            <Menu.Item name='home'>
-              <Icon name='home' />
-              Home
+            <Menu.Item name='hourLogApproval'>
+              <Icon name='hourglass two' />
+              Hour Log Approval
             </Menu.Item>
-            <Menu.Item name='gamepad'>
-              <Icon name='gamepad' />
-              Games
+            <Menu.Item name='eventApproval'>
+              <Icon name='add to calendar' />
+              Event Approval
             </Menu.Item>
-            <Menu.Item name='camera'>
-              <Icon name='camera' />
-              Channels
+            <Menu.Item name='postApproval'>
+              <Icon name='announcement' />
+              Post Approval
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
@@ -58,4 +58,4 @@ class SidebarLeftOverlay extends Component {
   }
 }
 
-export default SidebarLeftOverlay
+export default AdminSidebar

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import NavBar from './Components/NavBar'
-import SideBar from './Components/SideBar'
+import AdminSidebar from './Components/AdminSidebar'
 import EventContainer from './Containers/EventContainer'
 import PostContainer from './Containers/PostContainer'
 import MiningContainer from './Containers/MiningContainer'
@@ -23,7 +23,7 @@ import ApplicationContent from "./Components/ApplicationContent"
 
 class App extends Component {
 
-  componentWillMount () {
+  componentDidMount () {
     if (localStorage.getItem('jwt')) {
        this.props.getCurrentUser()
      }
@@ -31,16 +31,14 @@ class App extends Component {
 
   render() {
 
-    const isAdmin = true;
-
     return (
       <div className="App">
         <NavBar history={this.props.history}/>
 
-        { isAdmin ?
-            <SideBar history={this.props.history}>
+        { this.props.superAdmin ?
+            <AdminSidebar history={this.props.history}>
               <ApplicationContent />
-            </SideBar>
+            </AdminSidebar>
           : <ApplicationContent/>
         }
 
@@ -49,8 +47,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ dataReducer }) => ({
-  dataReducer
+const mapStateToProps = ( state ) => ({
+  superAdmin: state.superAdmin
 });
 
 export default withRouter(

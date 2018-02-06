@@ -38,7 +38,7 @@ class PostList extends Component {
     return(
       <div className="postWrapper">
         <div className="postsListcontainer">
-          {(!this.props.data.posts) ? "Loading..." : <div id="postsList"><ul>{this.posts()}</ul></div>}
+          {(!this.props.data.posts || ! this.props.data.posts[1] || !this.props.data.posts[1].user) ? "Loading..." : <div id="postsList"><ul>{this.posts()}</ul></div>}
         </div>
       </div>
     )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import EventContainer from '../Containers/EventContainer'
 import PostContainer from '../Containers/PostContainer'
 import MiningContainer from '../Containers/MiningContainer'
@@ -9,8 +9,6 @@ import LoginForm from './Forms/LoginForm';
 import SignUpForm from './Forms/SignUpForm';
 import HomePage from './HomePage';
 import UserPage from './UserPage';
-import { connect } from "react-redux";
-import { getCurrentUser, signInUser, logOutUser } from "../Actions/user";
 import authorize from "../authorize";
 import Profile from "./Profile";
 

@@ -4,21 +4,21 @@ export function fetchHourLogs() {
     return function(dispatch) {
       dispatch(fetchingHourLogs())
       HourLogApi.fetchHourLogs()
-      .then((posts) => {
-        dispatch(fetchedHourLogs(posts))
+      .then((hourLogs) => {
+        dispatch(fetchedHourLogs(hourLogs))
       })
     }
   }
 
-  function fetchedHourLogs(posts) {
+  function fetchedHourLogs(hourLogs) {
     return {
-      type: 'FETCHED_POSTS',
-      payload: posts
+      type: 'FETCHED_HOUR_LOGS',
+      payload: hourLogs
     }
   }
 
   function fetchingHourLogs() {
-    return { type: 'FETCHING_POSTS'}
+    return { type: 'FETCHING_HOUR_LOGS'}
   }
 
   export function createHourLog(params) {
