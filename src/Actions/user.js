@@ -15,7 +15,12 @@ export function signInUser(userObj) {
     dispatch(loadingUser())
     AuthAdapter.login(userObj)
     .then(userData => {
-      dispatch(loginUser(userData))
+      if (userData.jwt) {
+        dispatch(loginUser(userData))
+      }
+      else {
+        dispatch(loginError(userData))
+      }
     })
   }
 }
@@ -49,9 +54,6 @@ export function makeAMiner(userObj) {
   }
 }
 
-export function loginError(json) {
-}
-
 export function signingUp() {
   return {
     type: "SIGNING_UP_USER"
@@ -75,6 +77,13 @@ export function loginUser(userData) {
   return {
     type: "LOGIN_USER",
     payload: userData
+  }
+}
+
+export function loginError(error) {
+  return {
+    type: "LOGIN_ERROR",
+    payload: error
   }
 }
 

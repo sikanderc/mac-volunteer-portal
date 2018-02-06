@@ -13,7 +13,8 @@ class LoginForm extends React.Component {
 
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    this.props.signInUser({user: {email: this.state.email, password: this.state.password}});
+    let resp = this.props.signInUser({user: {email: this.state.email, password: this.state.password}})
+    console.log(resp);
   }
 
   handleChange = (event) => {
@@ -28,6 +29,7 @@ class LoginForm extends React.Component {
   // }
 
   render() {
+    console.log(this.props.loginError);
     return (
       <div className='login-form'>
         <style>{`
@@ -45,8 +47,15 @@ class LoginForm extends React.Component {
           <Grid.Column style={{ maxWidth: 450 }}>
           <br/>
             <Header as='h2' color='blue' textAlign='center'>Login to your account</Header>
-            <Form size='large' onSubmit={this.handleLoginSubmit}>
+
+
+            <Form size='large' onSubmit={this.handleLoginSubmit} error={this.props.loginError}>
               <Segment stacked>
+                <Message
+                  error
+                  header='Invalid Email or Password'
+                  content='Please type in the correct email address or password.'
+                />
                 <Form.Input
                   fluid
                   icon='user'
@@ -79,11 +88,21 @@ class LoginForm extends React.Component {
     )
   }
 }
+// {this.props.loginError ?
+//   <div className="ui negative message">
+//   <i className="close icon"></i>
+//   <div className="header">
+//   ERROR
+//   </div>
+//   <p> {this.props.loginError} </p>
+//   </div>
+//   : null}
 
 const mapStateToProps = state => {
   return {
     ...state.dataReducer,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    loginError: state.loginError
   };
 };
 

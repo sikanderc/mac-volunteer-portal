@@ -19,14 +19,18 @@ export default function dataReducer(state = initialState, action) {
     case "LOADING_USER":
       return { ...state, loading: true };
     case "LOGIN_USER":
+      console.log("jwt test", action.payload);
       localStorage.setItem("jwt", action.payload.jwt);
       return {
         ...state,
         id: action.payload.id,
         email: action.payload.email,
         loggedIn: true,
-        loading: false
+        loading: false,
+        loginError: null
       };
+      case "LOGIN_ERROR":
+        return {...state, loginError: action.payload}
       case "GET_USER":
         localStorage.getItem("jwt", action.payload.jwt);
         return {
