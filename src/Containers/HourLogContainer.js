@@ -18,7 +18,7 @@ class HourLogContainer extends Component {
       <div>
         <h2>Hour Log Container</h2>
           <HourLogCard />
-          <HourLogForm />
+          <HourLogForm userID={this.props.userID}/>
       </div>
     )
   }

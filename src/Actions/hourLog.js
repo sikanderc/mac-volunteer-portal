@@ -22,11 +22,35 @@ export function fetchHourLog(id) {
     return { type: 'FETCHING_HOUR_LOG'}
   }
 
-  export function createHourLog(params) {
+  function hourLogError(err) {
+    return {
+      type: 'HOUR_LOG_ERROR',
+      payload: err
+    }
+  }
+
+  function hourLogSuccess() {
+    return {
+      type: 'HOUR_LOG_SUCCESS',
+      payload: {
+        message: "Thank you for submitting your hour log. Your hours will be reviewed for approval."
+      }
+    }
+  }
+
+  export function clearHourLogMessages() {
+    return {type: "CLEAR_HOUR_LOG_MESSAGES"}
+  }
+
+  export function createHourLog(hourLog) {
     return function(dispatch) {
-      HourLogApi.createHourLog(params)
-      .then((post) => {
-        dispatch({})
+      HourLogApi.createHourLog(hourLog)
+      .then(res => {
+        if (res.error) {
+          dispatch(hourLogError())
+        } else {
+          dispatch(hourLogSuccess())
+        }
       })
     }
   }

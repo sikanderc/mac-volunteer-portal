@@ -110,8 +110,8 @@ export class UserEventApi {
 
 export class HourLogApi {
 
-  static newHourLog(body) {
-    return fetch(`${baseUrl}/new_hour_log`, postRequest(body)).then(response => response.json())
+  static createHourLog(body) {
+    return fetch(`${baseUrl}/new_hour_log`, postRequest({hour_log: body})).then(response => response.json())
   }
 
   static getHourLog(id) {

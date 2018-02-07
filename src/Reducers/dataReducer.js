@@ -1,6 +1,27 @@
 import { userNormalizr, postNormalizr, commentNormalizr, eventNormalizr, hourLogNormalizr, userEventNormalizr } from '../normalizr'
 
-const initialState = { id: null, email: null, loggedIn: false, loading: false, superAdmin: false, users: {}, posts: {}, events: {}, hour_log: {}, connected: {}, data: {users: null, comments: null, posts: null, events: null, hour_log: null, connected: null }}
+const initialState = {
+  id: null,
+  email: null,
+  loggedIn: false,
+  loading: false,
+  superAdmin: false,
+  users: {},
+  posts: {},
+  events: {},
+  hour_log: {},
+  connected: {},
+  data: {
+    users: null,
+    comments: null,
+    posts: null,
+    events: null,
+    hour_log: null,
+    connected: null
+  },
+  hourLogError: false,
+  hourLogSuccess: null
+}
 
 export default function dataReducer(state = initialState, action) {
   switch (action.type) {
@@ -61,6 +82,22 @@ export default function dataReducer(state = initialState, action) {
     case "FETCHED_HOUR_LOG":
       let normalizedhourLog = hourLogNormalizr(action.payload)
       return { ...state, hourLog: {...state.hourLog, ...normalizedhourLog.entities.hourLog}, data: normalizedhourLog.entities, results: normalizedhourLog.result, loading: false }
+    case "HOUR_LOG_ERROR":
+      return {
+        ...state,
+        hourLogError: true
+      }
+    case "HOUR_LOG_SUCCESS":
+      return {
+        ...state,
+        hourLogSuccess: true
+      }
+    case "CLEAR_HOUR_LOG_MESSAGES":
+      return {
+        ...state,
+        hourLogError: false,
+        hourLogSuccess: false
+      }
     case "SET_USER_EVENT_DATA":
       let normalizedUserEvents = userEventNormalizr(action.payload)
       return { ...state, userEvents: {...state.userEvents, ...normalizedUserEvents.entities.userEvents}, data: normalizedUserEvents.entities, results: normalizedUserEvents.result }
