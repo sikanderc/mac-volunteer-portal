@@ -1,25 +1,24 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch} from 'react-router-dom'
-import { fetchHourLogs } from '../Actions/hourLog'
+import { fetchHourLog } from '../Actions/hourLog'
 import HourLogForm from './../Components/Forms/HourLogForm';
-import HourLogList from './../Components/Lists/HourLogList';
 import HourLogCard from './../Components/Cards/HourLogCard';
 
 class HourLogContainer extends Component {
 
-  // componentDidMount() {
-  //   this.props.fetchHourLogs()
-  // }
+  componentDidMount() {
+    if (this.props.userID) {
+      this.props.fetchHourLog(this.props.userID.toString())
+    }
+  }
 
   render() {
     return (
       <div>
-        <Route path='/hourLog' render={()=>(<h2>Hour Log Container</h2>)} />
-        <Switch>
-          <Route exact path='/hourLog' render={()=>(<HourLogList />)} />
-          <Route exact path='/hourLog/new' render={()=>(<HourLogForm />)} />
-        </Switch>
+        <h2>Hour Log Container</h2>
+          <HourLogCard />
+          <HourLogForm />
       </div>
     )
   }
@@ -29,6 +28,7 @@ class HourLogContainer extends Component {
 function mapStateToProps(state) {
   console.log(state);
   return {
+    userID: state.id,
     hourLog: state.hourLog,
     isLoading: state.isLoading
   }
@@ -36,8 +36,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchHourLogs: () => {
-      dispatch(fetchHourLogs())
+    fetchHourLog: (id) => {
+      dispatch(fetchHourLog(id))
     }
   }
 }

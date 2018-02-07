@@ -20,7 +20,7 @@ class HourLogForm extends React.Component {
   render() {
     return (
       <Form>
-        <h2>Hour Log</h2>
+        <h2>Hour Log Form</h2>
         <Form.Field>
           <label>Date Worked</label>
           <DatePicker selected={this.state.workDate} onChange={this.handleChange} dateFormat="LL" />

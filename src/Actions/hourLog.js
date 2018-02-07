@@ -1,24 +1,25 @@
 import {HourLogApi} from '../Adapter'
 
-export function fetchHourLogs() {
+export function fetchHourLog(id) {
     return function(dispatch) {
-      dispatch(fetchingHourLogs())
-      HourLogApi.fetchHourLogs()
-      .then((hourLogs) => {
-        dispatch(fetchedHourLogs(hourLogs))
+      dispatch(fetchingHourLog())
+      console.log("hourLogAPI", id, typeof(id));
+      HourLogApi.getHourLog(id)
+      .then((hourLog) => {
+        dispatch(fetchedHourLog(hourLog))
       })
     }
   }
 
-  function fetchedHourLogs(hourLogs) {
+  function fetchedHourLog(hourLog) {
     return {
-      type: 'FETCHED_HOUR_LOGS',
-      payload: hourLogs
+      type: 'FETCHED_HOUR_LOG',
+      payload: hourLog
     }
   }
 
-  function fetchingHourLogs() {
-    return { type: 'FETCHING_HOUR_LOGS'}
+  function fetchingHourLog() {
+    return { type: 'FETCHING_HOUR_LOG'}
   }
 
   export function createHourLog(params) {

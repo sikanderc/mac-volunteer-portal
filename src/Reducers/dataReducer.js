@@ -1,6 +1,6 @@
 import { userNormalizr, postNormalizr, commentNormalizr, eventNormalizr, hourLogNormalizr, userEventNormalizr } from '../normalizr'
 
-const initialState = { id: null, email: null, loggedIn: false, loading: false, superAdmin: false, users: {}, posts: {}, events: {}, hour_logs: {}, connected: {}, data: {users: null, comments: null, posts: null, events: null, hour_logs: null, connected: null }}
+const initialState = { id: null, email: null, loggedIn: false, loading: false, superAdmin: false, users: {}, posts: {}, events: {}, hour_log: {}, connected: {}, data: {users: null, comments: null, posts: null, events: null, hour_log: null, connected: null }}
 
 export default function dataReducer(state = initialState, action) {
   switch (action.type) {
@@ -48,7 +48,7 @@ export default function dataReducer(state = initialState, action) {
 
     case "SET_USER_DATA":
       let normalizedUsers = userNormalizr(action.payload)
-      return { ...state, users: {...state.users, ...normalizedUsers.entities.users}, data: normalizedUsers.entities, posts: normalizedUsers.entities.posts, comments: normalizedUsers.entities.comments, events: normalizedUsers.entities.events, hourLogs: normalizedUsers.entities.hourLogs, userEvents: normalizedUsers.entities.userEvents, results: normalizedUsers.result }
+      return { ...state, users: {...state.users, ...normalizedUsers.entities.users}, data: normalizedUsers.entities, posts: normalizedUsers.entities.posts, comments: normalizedUsers.entities.comments, events: normalizedUsers.entities.events, hourLog: normalizedUsers.entities.hourLog, userEvents: normalizedUsers.entities.userEvents, results: normalizedUsers.result }
     case "FETCHED_POSTS":
       let normalizedPosts = postNormalizr(action.payload)
       return { ...state, posts: {...state.posts, ...normalizedPosts.entities.posts}, data: normalizedPosts.entities, comments: normalizedPosts.entities.comments,  results: normalizedPosts.result, loading: false }
@@ -57,10 +57,10 @@ export default function dataReducer(state = initialState, action) {
       return { ...state, comments: {...state.comments, ...normalizedComments.entities.comments}, data: normalizedComments.entities, results: normalizedComments.result }
     case "FETCHED_EVENTS":
       let normalizedEvents = eventNormalizr(action.payload)
-      return { ...state, events: {...state.events, ...normalizedEvents.entities.events}, data: normalizedEvents.entities, posts: normalizedEvents.entities.posts, users: normalizedEvents.entities.users, hourLogs: normalizedEvents.entities.hourLogs, userEvents: normalizedEvents.entities.userEvents, results: normalizedEvents.result, loading: false }
-    case "SET_HOUR_LOG_DATA":
-      let normalizedHourLogs = hourLogNormalizr(action.payload)
-      return { ...state, hourLogs: {...state.hourLogs, ...normalizedHourLogs.entities.hourLogs}, data: normalizedHourLogs.entities, results: normalizedHourLogs.result }
+      return { ...state, events: {...state.events, ...normalizedEvents.entities.events}, data: normalizedEvents.entities, posts: normalizedEvents.entities.posts, users: normalizedEvents.entities.users, hourLog: normalizedEvents.entities.hourLog, userEvents: normalizedEvents.entities.userEvents, results: normalizedEvents.result, loading: false }
+    case "FETCHED_HOUR_LOG":
+      let normalizedhourLog = hourLogNormalizr(action.payload)
+      return { ...state, hourLog: {...state.hourLog, ...normalizedhourLog.entities.hourLog}, data: normalizedhourLog.entities, results: normalizedhourLog.result, loading: false }
     case "SET_USER_EVENT_DATA":
       let normalizedUserEvents = userEventNormalizr(action.payload)
       return { ...state, userEvents: {...state.userEvents, ...normalizedUserEvents.entities.userEvents}, data: normalizedUserEvents.entities, results: normalizedUserEvents.result }
@@ -92,9 +92,7 @@ export default function dataReducer(state = initialState, action) {
     case 'FETCHING_USER_EVENTS':
       return {...state, loading: true }
 
-    case 'FETCHED_HOUR_LOGS':
-      return {...state, hourLogs: normalizedEvents.entities.hourLogs, loading: false }
-    case 'FETCHING_HOUR_LOGS':
+    case 'FETCHING_HOUR_LOG':
       return {...state, loading: true }
 
 

@@ -114,16 +114,16 @@ export class HourLogApi {
     return fetch(`${baseUrl}/new_hour_log`, postRequest(body)).then(response => response.json())
   }
 
-  static getHourLogs() {
-    return fetch(`${baseUrl}/hour_logs`, getRequest()).then(response => response.json());
+  static getHourLog(id) {
+    return fetch(`${baseUrl}/hour_log/${id}`, getRequest()).then(response => response.json());
   }
 
   static editHourLog(body, id) {
-    return fetch(`${baseUrl}/hour_logs/${id}`, putRequest(body)).then(response => response.json())
+    return fetch(`${baseUrl}/hour_log/${id}`, putRequest(body)).then(response => response.json())
   }
 
   static deleteHourLog(id) {
-    return fetch(`${baseUrl}/hour_logs/${id}`, deleteRequest()).then(response => response.json())
+    return fetch(`${baseUrl}/hour_log/${id}`, deleteRequest()).then(response => response.json())
   }
 
 }

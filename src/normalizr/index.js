@@ -25,7 +25,7 @@ const newEvent = new schema.Entity('events', {
   admin: user
 })
 
-const hourLog = new schema.Entity('hourLogs', {
+const hourLog = new schema.Entity('hourLog', {
   volunteer: user,
   event: newEvent
 })
