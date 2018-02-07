@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch} from 'react-router-dom'
 import { fetchHourLog } from '../Actions/hourLog'
 import HourLogForm from './../Components/Forms/HourLogForm';
-import HourLogCard from './../Components/Cards/HourLogCard';
+import HourLogList from './../Components/Lists/HourLogList';
 
 class HourLogContainer extends Component {
 
@@ -17,13 +17,13 @@ class HourLogContainer extends Component {
     return (
       <div>
         <h2>Hour Log Container</h2>
-          <HourLogCard />
+          <HourLogList hourLog={this.props.hourLog}/>
           <HourLogForm userID={this.props.userID}/>
       </div>
     )
   }
 }
-// <Route exact path='/hourLog/:id' render={()=>(<HourLogCard />)} />
+// <Route exact path='/hourLog/:id' render={()=>(<HourLogList />)} />
 
 function mapStateToProps(state) {
   console.log(state);

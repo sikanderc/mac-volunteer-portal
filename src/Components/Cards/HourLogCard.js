@@ -10,9 +10,10 @@ class HourLogCard extends Component {
   // }
 
   render() {
+    console.log("CARD", this.props)
     return (
       <div>
-        Hour Log Card
+        <p> Date Worked: {this.props.hourLogItem.date_worked} </p>
       </div>
     )
   }

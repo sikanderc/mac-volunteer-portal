@@ -1,43 +1,35 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import {Route} from 'react-router-dom'
-import { fetchHourLogs } from '../../Actions/hourLog'
 import HourLogCard from './../Cards/HourLogCard';
 
 class HourLogList extends Component {
 
-  // componentDidMount() {
-  //   this.props.fetchHourLogs()
-  // }
+  formatHourLog = () => {
+    if (this.props.hourLog) {
+      const hourLogElements = []
+      const hl = this.props.hourLog
+
+      for (let key in hl) {
+        hourLogElements.push(
+          <li key={key} > <HourLogCard hourLogItem={hl[key]} /> </li>
+        )
+      }
+      return hourLogElements
+
+    } else {
+      return null
+    }
+  }
 
   render() {
     return (
       <div>
-        { this.props.isLoading ? <p>Loading</p> : <p>Not Loading</p> }
         <ul>
-        <li />
+          {this.formatHourLog()}
         </ul>
       </div>
     )
   }
 }
-// <Route exact path='/hourLog/:id' render={()=>(<HourLogCard />)} />
-// <Route exact path='/hourLog/:userID' render={()=>(<UserHourLogList />)} />
 
-function mapStateToProps(state) {
-  console.log(state);
-  return {
-    hourLog: state.hourLog,
-    isLoading: state.isLoading
-  }
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchHourLogs: () => {
-      dispatch(fetchHourLogs())
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HourLogList)
+export default HourLogList
